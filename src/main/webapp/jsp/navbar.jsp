@@ -1,8 +1,13 @@
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styleNavbar.css" />
 
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>header</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styleNavbar.css" />
+</head>
 <!--
 <div class="nav-options">
 <a href="#">Inicio</a>
@@ -68,3 +73,4 @@
         }
     }
 </script>
+</html>
