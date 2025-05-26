@@ -9,34 +9,31 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styleNavbar.css" />
 </head>
 
-
-
-
 <div class="nav-banner">
     <div class="nav-options">
 
         <c:if test="${sessionScope.rol == 'ADMIN'}">
-            <a href="${pageContext.request.contextPath}/jsp/user-management.jsp" target="_blank">Gestion Usuarios</a>
-            <a href="#" target="_blank">Gestion Docentes</a>
-            <a href="#" target="_blank">Gestion Estudiantes</a>
-            <a href="#" target="_blank">Gestion Semestres</a>
-            <a href="#" target="_blank">Gestion Materias</a>
-            <a href="#" target="_blank">Gestion Espacios</a>
-            <a href="#" target="_blank">Gestion Prestamos</a>
-            <a href="${pageContext.request.contextPath}/jsp/registroCarreraEstudiante.jsp" target="_blank">Registro estudiante-carrera</a>
+            <a href="${pageContext.request.contextPath}/user-management.jsp">Gestion Usuarios</a>
+            <a href="${pageContext.request.contextPath}/teacher-management.jsp">Gestion Docentes</a>
+            <a href="${pageContext.request.contextPath}/student-management.jsp">Gestion Estudiantes</a>
+            <a href="${pageContext.request.contextPath}/semester-management.jsp">Gestion Semestres</a>
+            <a href="${pageContext.request.contextPath}/subject-management.jsp">Gestion Materias</a>
+            <a href="${pageContext.request.contextPath}/place-management.jsp">Gestion Espacios</a>
+            <a href="${pageContext.request.contextPath}/loans-management.jsp">Gestion Prestamos</a>
+            <a href="${pageContext.request.contextPath}/registroCarreraEstudiante.jsp">Registro estudiante-carrera</a>
         </c:if>
 
         <c:if test="${sessionScope.rol == 'TEACHER'}">
-            <a href="#" target="_blank">Gestion Notas</a>
-            <a href="#" target="_blank">Gestion Asistencias</a>
-            <a href="#" target="_blank">Gestion Evaluaciones</a>
+            <a href="#">Gestion Notas</a>
+            <a href="#">Gestion Asistencias</a>
+            <a href="#">Gestion Evaluaciones</a>
         </c:if>
 
         <c:if test="${sessionScope.rol == 'STUDENT'}">
-            <a href="#" target="_blank">Gestion Materias</a>
-            <a href="#" target="_blank">Gestion Excusas</a>
-            <a href="#" target="_blank">Record Academico</a>
-            <a href="#" target="_blank">Horario</a>
+            <a href="#">Gestion Materias</a>
+            <a href="#">Gestion Excusas</a>
+            <a href="#">Record Academico</a>
+            <a href="#">Horario</a>
         </c:if>
     </div>
     <div class="nav-right">
