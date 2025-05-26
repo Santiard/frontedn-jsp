@@ -8,43 +8,47 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styleNavbar.css" />
 </head>
-<!--
-<div class="nav-options">
-<a href="#">Inicio</a>
 
-<a href="#">Estudiantes</a>
-
-<c:if test="${usuario.rol == 'admin'}">
-    <a href="#">Docentes</a>
-    <a href="#">Asignaturas</a>
-</c:if>
-
-<c:if test="${usuario.rol == 'docente'}">
-    <a href="#">Asignaturas</a>
-</c:if>
-
-<c:if test="${usuario.rol == 'admin' or usuario.rol == 'docente'}">
-    <a href="#">Salones</a>
-</c:if>
-</div>
--->
 
 
 
 <div class="nav-banner">
     <div class="nav-options">
-        <a href="#">Inicio</a>
-        <a href="jsp/usuarios">Usuarios</a>
-        <a href="#">Estudiantes</a>
-        <a href="#">Docentes</a>
-        <a href="#">Asignaturas</a>
-        <a href="#">Salones</a>
+
+        <c:if test="${sessionScope.rol == 'ADMIN'}">
+            <a href="${pageContext.request.contextPath}/jsp/user-management.jsp" target="_blank">Gestion Usuarios</a>
+            <a href="#" target="_blank">Gestion Docentes</a>
+            <a href="#" target="_blank">Gestion Estudiantes</a>
+            <a href="#" target="_blank">Gestion Semestres</a>
+            <a href="#" target="_blank">Gestion Materias</a>
+            <a href="#" target="_blank">Gestion Espacios</a>
+            <a href="#" target="_blank">Gestion Prestamos</a>
+            <a href="${pageContext.request.contextPath}/jsp/registroCarreraEstudiante.jsp" target="_blank">Registro estudiante-carrera</a>
+        </c:if>
+
+        <c:if test="${sessionScope.rol == 'TEACHER'}">
+            <a href="#" target="_blank">Gestion Notas</a>
+            <a href="#" target="_blank">Gestion Asistencias</a>
+            <a href="#" target="_blank">Gestion Evaluaciones</a>
+        </c:if>
+
+        <c:if test="${sessionScope.rol == 'STUDENT'}">
+            <a href="#" target="_blank">Gestion Materias</a>
+            <a href="#" target="_blank">Gestion Excusas</a>
+            <a href="#" target="_blank">Record Academico</a>
+            <a href="#" target="_blank">Horario</a>
+        </c:if>
     </div>
     <div class="nav-right">
         <a href="#">
-            <img src="${pageContext.request.contextPath}/images/salir.png" alt="Salir" class="nav-icon" />
+            <img src="${pageContext.request.contextPath}/images/exit.png" alt="Salir" class="nav-icon" />
         </a>
-        <span class="notification-icon">🔔</span>
+        <a href="#">
+            <img src="${pageContext.request.contextPath}/images/notification.png" alt="Notificacion" class="nav-icon" />
+        </a>
+        <a href="#">
+            <img src="${pageContext.request.contextPath}/images/user.png" alt="Perfil" class="nav-icon" />
+        </a>
         <div class="user-menu">
             <span class="user-name" onclick="toggleDropdown()">${usuario.nombre}</span>
             <div class="dropdown" id="userDropdown">

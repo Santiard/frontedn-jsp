@@ -33,8 +33,8 @@
     <div class="right-column">
         <div class="user-info">
             <h3>Bienvenido</h3>
-            <p><strong>Nombre:</strong> ${usuario.nombre}</p>
-            <p><strong>Rol:</strong> ${usuario.rol}</p>
+            <p><strong>Nombre:</strong> ${sessionScope.nombre}</p>
+            <p><strong>Rol:</strong> ${sessionScope.rol}</p>
         </div>
     </div>
 </div>
