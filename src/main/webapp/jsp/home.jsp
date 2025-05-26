@@ -5,9 +5,9 @@
 <%@ include file="navbar.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/stylesHome.css" />
 
-<!-- Contenido principal -->
+
 <div class="home-container">
-    <!-- Columna izquierda -->
+
     <div class="left-column">
         <div class="module-grid">
             <a href="#" class="module">
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <!-- Columna derecha -->
+
     <div class="right-column">
         <div class="user-info">
             <h3>Bienvenido</h3>
