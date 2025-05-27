@@ -17,7 +17,7 @@ import java.net.URL;
 @WebServlet("/BuscarDocenteServlet")
 public class BuscarDocenteServlet extends HttpServlet {
 
-    private static final String API_URL = "http://localhost:8081/api/teachers/documento/";
+    private static final String API_URL = "http://localhost:8081/api/teachers/teachers/document/";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

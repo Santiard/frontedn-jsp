@@ -1,5 +1,8 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.TeacherDTO;
+import dto.UsuarioDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,82 +10,92 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @WebServlet("/RegistrarDocenteServlet")
-public class RegistrarDocenteServlet extends HttpServlet { ;
+public class RegistrarDocenteServlet extends HttpServlet {
+
+    private static final String USER_API_URL = "http://localhost:8081/api/users/document/";
+    private static final String TEACHER_API_URL = "http://localhost:8081/api/teachers";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String documento = request.getParameter("documento");
-        String departamento = request.getParameter("departamento");
-        String codigoInstitucional = request.getParameter("codigoInstitucional");
-        boolean statusContrato = Boolean.parseBoolean(request.getParameter("statusContrato"));
+        String document = request.getParameter("documento");
+        String specialization = request.getParameter("departamento");
+        String institutionalCode = request.getParameter("codigoInstitucional");
+        String statusContratoStr = request.getParameter("statusContrato");
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest userRequest = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/api/users/documento/" + documento))
-                .GET()
-                .build();
+        URL userUrl = new URL(USER_API_URL + document);
+        HttpURLConnection userConnection = (HttpURLConnection) userUrl.openConnection();
+        userConnection.setRequestMethod("GET");
+        userConnection.setRequestProperty("Accept", "application/json");
 
-        try {
-            HttpResponse<String> userResponse = client.send(userRequest, HttpResponse.BodyHandlers.ofString());
+        int userStatus = userConnection.getResponseCode();
 
-            if (userResponse.statusCode() == 200) {
-                JSONObject userJson = new JSONObject(userResponse.body());
-
-                String roleName = userJson.getString("roleName");
-
-                if (!"DOCENTE".equalsIgnoreCase(roleName)) {
-                    request.setAttribute("error", "El usuario no tiene rol de docente.");
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                    return;
-                }
-
-                // Crear JSON del docente
-                JSONObject teacherJson = new JSONObject();
-                teacherJson.put("firstName", userJson.getString("firstName"));
-                teacherJson.put("lastName", userJson.optString("lastName", ""));
-                teacherJson.put("email", userJson.getString("email"));
-                teacherJson.put("status", userJson.getString("status"));
-                teacherJson.put("roleName", userJson.getString("roleName"));
-                teacherJson.put("password", userJson.getString("password"));
-                teacherJson.put("documentNumber", userJson.getString("documentNumber"));
-                teacherJson.put("specialization", departamento);
-                teacherJson.put("institutionalCode", codigoInstitucional);
-                teacherJson.put("statusContract", statusContrato);
-
-                // Enviar a backend
-                HttpRequest teacherRequest = HttpRequest.newBuilder()
-                        .uri(URI.create("http://localhost:8080/api/teachers"))
-                        .header("Content-Type", "application/json")
-                        .POST(HttpRequest.BodyPublishers.ofString(teacherJson.toString()))
-                        .build();
-
-                HttpResponse<String> teacherResponse = client.send(teacherRequest, HttpResponse.BodyHandlers.ofString());
-
-                if (teacherResponse.statusCode() == 200 || teacherResponse.statusCode() == 201) {
-                    response.sendRedirect("panelDocente.jsp?registroExitoso=true");
-                } else {
-                    request.setAttribute("error", "No se pudo registrar al docente. Verifica si ya existe.");
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                }
-
-            } else {
-                request.setAttribute("error", "No se encontró el usuario con ese documento.");
-                request.getRequestDispatcher("error.jsp").forward(request, response);
-            }
-
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); // buena práctica
-            throw new ServletException("La operación fue interrumpida", e);
+        if (userStatus != 200) {
+            request.setAttribute("error", "Usuario no encontrado con documento: " + document);
+            request.getRequestDispatcher("/jsp/teacher-management.jsp").forward(request, response);
+            return;
         }
+
+        BufferedReader userReader = new BufferedReader(new InputStreamReader(userConnection.getInputStream()));
+        StringBuilder userResponseStr = new StringBuilder();
+        String line;
+        while ((line = userReader.readLine()) != null) {
+            userResponseStr.append(line);
+        }
+        userReader.close();
+
+        ObjectMapper mapper = new ObjectMapper();
+        UsuarioDTO usuario = mapper.readValue(userResponseStr.toString(), UsuarioDTO.class);
+
+        if (!"TEACHER".equalsIgnoreCase(usuario.getRoleName())) {
+            request.setAttribute("error", "El usuario no tiene rol de docente.");
+            request.getRequestDispatcher("/jsp/teacher-management.jsp").forward(request, response);
+            return;
+        }
+
+        TeacherDTO docente = new TeacherDTO();
+        docente.setFirstName(usuario.getFirstName());
+        docente.setLastName(usuario.getLastName());
+        docente.setEmail(usuario.getEmail());
+        docente.setPassword(usuario.getPassword());
+        docente.setDocumentNumber(usuario.getDocumentNumber());
+        docente.setRoleName(usuario.getRoleName());
+        docente.setStatus(usuario.getStatus());
+        docente.setSpecialization(specialization);
+        docente.setInstitutionalCode(institutionalCode);
+        docente.setStatusContract(Boolean.parseBoolean(statusContratoStr));
+
+        URL teacherUrl = new URL(TEACHER_API_URL);
+        HttpURLConnection teacherConnection = (HttpURLConnection) teacherUrl.openConnection();
+        teacherConnection.setRequestMethod("POST");
+        teacherConnection.setRequestProperty("Content-Type", "application/json");
+        teacherConnection.setDoOutput(true);
+
+        String jsonDocente = mapper.writeValueAsString(docente);
+        try (OutputStream os = teacherConnection.getOutputStream()) {
+            byte[] input = jsonDocente.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        int teacherStatus = teacherConnection.getResponseCode();
+        if (teacherStatus == 200 || teacherStatus == 201) {
+            request.setAttribute("success", "Docente registrado correctamente.");
+        } else {
+            request.setAttribute("error", "Error al registrar docente.");
+        }
+
+        teacherConnection.disconnect();
+        request.getRequestDispatcher("/jsp/teacher-management.jsp").forward(request, response);
     }
-
-
-
 }

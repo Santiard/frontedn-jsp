@@ -5,7 +5,7 @@ public class TeacherDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private String status;
+    private boolean status;
     private String roleName;
     private String specialization;
     private String password;
@@ -46,11 +46,11 @@ public class TeacherDTO {
         this.email = email;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

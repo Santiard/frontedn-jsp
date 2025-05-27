@@ -85,10 +85,13 @@
 <%@ include file="header.jsp" %>
 <%@ include file="navbar.jsp" %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <body>
 <div class="page-wrapper">
 
-    <!-- Buscar docente -->
+
     <div class="full-width-container">
         <div class="form-container">
             <h2>Buscar Docente</h2>
@@ -97,53 +100,83 @@
                 <input type="text" id="buscarDocumento" name="documento" required>
                 <button type="submit">Buscar</button>
             </form>
+            <form action="BuscarDocenteServlet" method="get">
+                <label for="buscarCodigo">Codigo Institucional:</label>
+                <input type="text" id="buscarCodigo" name="codigo" required>
+                <button type="submit">Buscar</button>
+            </form>
+
+
+            <c:if test="${not empty error}">
+                <p style="color:red">${error}</p>
+            </c:if>
         </div>
     </div>
 
-    <!-- Registrar y Editar docente -->
     <div class="row-container">
         <div class="form-container equal-panel">
             <h2>Registrar Docente</h2>
             <form action="RegistrarDocenteServlet" method="post">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
 
-                <label for="documento">Documento:</label>
+                <label for="documento">Documento del Usuario:</label>
                 <input type="text" id="documento" name="documento" required>
 
-                <label for="correo">Correo:</label>
-                <input type="email" id="correo" name="correo" required>
-
-                <label for="departamento">Departamento:</label>
+                <label for="departamento">Departamento / Especialización:</label>
                 <input type="text" id="departamento" name="departamento" required>
 
-                <label for="clave">Contraseña:</label>
-                <input type="password" id="clave" name="clave" required>
+                <label for="codigoInstitucional">Código Institucional:</label>
+                <input type="text" id="codigoInstitucional" name="codigoInstitucional" required>
 
-                <button type="submit">Registrar</button>
+                <label for="statusContrato">¿Contrato activo?</label>
+                <select id="statusContrato" name="statusContrato" required>
+                    <option value="true">Sí</option>
+                    <option value="false">No</option>
+                </select>
+
+                <button type="submit">Registrar Docente</button>
             </form>
         </div>
+
 
         <div class="form-container equal-panel">
             <h2>Editar Docente</h2>
             <form action="EditarDocenteServlet" method="post">
 
+                <!-- ID oculto -->
+                <input type="hidden" name="id" value="${docenteBuscado.id}" />
+
+                <!-- Nombre (editable) -->
                 <label for="nombreEditar">Nombre:</label>
-                <input type="text" id="nombreEditar" name="nombre">
+                <input type="text" id="nombreEditar" name="nombre"
+                       value="${docenteBuscado.firstName} ${docenteBuscado.lastName}"
+                       <c:if test="${empty docenteBuscado}">readonly</c:if> />
 
-                <label for="documentoEditar">Documento:</label>
-                <input type="text" id="documentoEditar" name="documento">
-
+                <!-- Correo (no editable, solo informativo) -->
                 <label for="correoEditar">Correo:</label>
-                <input type="email" id="correoEditar" name="correo">
+                <input type="email" id="correoEditar" name="correo"
+                       value="${docenteBuscado.email}" readonly />
 
-                <label for="departamentoEditar">Departamento:</label>
-                <input type="text" id="departamentoEditar" name="departamento">
+                <!-- Código Institucional (no editable) -->
+                <label for="codigoInstitucionalEditar">Código Institucional:</label>
+                <input type="text" id="codigoInstitucionalEditar" name="codigoInstitucional"
+                       value="${docenteBuscado.institutionalCode}" readonly />
 
-                <label for="claveEditar">Contraseña:</label>
-                <input type="password" id="claveEditar" name="clave">
+                <!-- Departamento / Especialización -->
+                <label for="departamentoEditar">Departamento / Especialización:</label>
+                <input type="text" id="departamentoEditar" name="departamento"
+                       value="${docenteBuscado.specialization}"
+                       <c:if test="${empty docenteBuscado}">readonly</c:if> />
 
-                <button type="submit">Actualizar</button>
+                <!-- Contrato Activo (sí/no) -->
+                <label for="statusContratoEditar">¿Contrato activo?</label>
+                <select id="statusContratoEditar" name="statusContrato"
+                        <c:if test="${empty docenteBuscado}">disabled</c:if>>
+                    <option value="true" ${docenteBuscado.statusContract ? 'selected' : ''}>Sí</option>
+                    <option value="false" ${!docenteBuscado.statusContract ? 'selected' : ''}>No</option>
+                </select>
+
+                <!-- Botón de actualizar -->
+                <button type="submit" <c:if test="${empty docenteBuscado}">disabled</c:if>>Actualizar</button>
             </form>
         </div>
     </div>
