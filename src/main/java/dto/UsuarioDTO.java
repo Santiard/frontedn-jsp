@@ -1,50 +1,41 @@
 package dto;
 
 public class UsuarioDTO {
-    private Long id;
-    private String nombre;
-    private String documento;
-    private String correo;
-    private String rol;
+    private long id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private Boolean status;
+    private Long roleId;
+    private String documentNumber;
+    private String roleName; // <- para uso en JSP
 
+    // Getters y setters
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
-    public String getDocumento() {
-        return documento;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getCorreo() {
-        return correo;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getRol() {
-        return rol;
-    }
-    
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Boolean getStatus() { return status; }
+    public void setStatus(Boolean status) { this.status = status; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public Long getRoleId() { return roleId; }
+    public void setRoleId(Long roleId) { this.roleId = roleId; }
 
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
+    public String getDocumentNumber() { return documentNumber; }
+    public void setDocumentNumber(String documentNumber) { this.documentNumber = documentNumber; }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
+    public String getRoleName() { return roleName; }
+    public void setRoleName(String roleName) { this.roleName = roleName; }
 }

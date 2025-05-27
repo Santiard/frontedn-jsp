@@ -23,7 +23,7 @@ public class BuscarUsuarioServlet extends HttpServlet {
 
         String documento = request.getParameter("documento");
 
-        String urlStr = "http://localhost:8081/api/users/document/" + documento;
+        String urlStr = "http://localhost:8081/api/users/document-with-password/" + documento;
         HttpURLConnection connection = null;
 
         try {
@@ -35,9 +35,9 @@ public class BuscarUsuarioServlet extends HttpServlet {
             String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
             connection.setRequestProperty("Authorization", "Basic " + encodedAuth);
 
-            int status = connection.getResponseCode();
+            int statusCode = connection.getResponseCode();
 
-            if (status == 200) {
+            if (statusCode == 200) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder responseBody = new StringBuilder();
                 String line;
@@ -50,10 +50,22 @@ public class BuscarUsuarioServlet extends HttpServlet {
 
                 UsuarioDTO usuarioDTO = new UsuarioDTO();
                 usuarioDTO.setId(json.getLong("id"));
-                usuarioDTO.setNombre(json.getString("firstName") + " " + json.getString("lastName"));
-                usuarioDTO.setDocumento(documento); // el que usaste para buscar
-                usuarioDTO.setCorreo(json.getString("email"));
-                usuarioDTO.setRol(json.getString("roleName"));
+                usuarioDTO.setFirstName(json.getString("firstName"));
+                usuarioDTO.setLastName(json.getString("lastName"));
+                usuarioDTO.setDocumentNumber(json.getString("documentNumber"));
+                usuarioDTO.setEmail(json.getString("email"));
+                usuarioDTO.setPassword(json.optString("password", ""));
+                usuarioDTO.setRoleId(json.getLong("roleId"));
+
+                // Convertir roleId a nombre de rol
+                String roleName;
+                switch (json.getInt("roleId")) {
+                    case 1: roleName = "ADMIN"; break;
+                    case 2: roleName = "TEACHER"; break;
+                    case 3: roleName = "STUDENT"; break;
+                    default: roleName = "DESCONOCIDO"; break;
+                }
+                usuarioDTO.setRoleName(roleName);
 
                 request.setAttribute("usuarioBuscado", usuarioDTO);
 
@@ -62,7 +74,8 @@ public class BuscarUsuarioServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            request.setAttribute("mensajeError", "Error al conectar con el servidor.");
+            request.setAttribute("mensajeError", "Error al conectar con el servidor de autenticación.");
+            e.printStackTrace();
         } finally {
             if (connection != null) {
                 connection.disconnect();
