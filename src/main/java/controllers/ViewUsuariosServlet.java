@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/verUsuarios")
+@WebServlet("/ViewUsuariosServlet")
 public class ViewUsuariosServlet extends HttpServlet {
 
     private static final String API_URL = "http://localhost:8081/api/users";
@@ -50,10 +50,10 @@ public class ViewUsuariosServlet extends HttpServlet {
 
             // Enviar al JSP
             request.setAttribute("usuarios", usuarios);
-            request.getRequestDispatcher("jsp/user-list.jsp").forward(request, response);
+            request.getRequestDispatcher("jsp/view-users.jsp").forward(request, response);
         } else {
             request.setAttribute("error", "No se pudieron obtener los usuarios");
-            request.getRequestDispatcher("jsp/user-list.jsp").forward(request, response);
+            request.getRequestDispatcher("jsp/view-users.jsp").forward(request, response);
         }
     }
 }

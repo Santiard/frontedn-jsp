@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-<jsp:include page="navbar.jsp" />
+<%@ include file="header.jsp" %>
+<%@ include file="navbar.jsp" %>
 
 <div class="container">
     <h2>Listado de Usuarios Registrados</h2>
@@ -50,5 +51,6 @@
     <a href="user-management.jsp">← Volver al registro</a>
 </div>
 </body>
+<%@ include file="footer.jsp" %>
 </html>
 
