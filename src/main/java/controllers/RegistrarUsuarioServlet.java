@@ -8,11 +8,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Base64;
 
 @WebServlet("/RegistrarUsuarioServlet")
 public class RegistrarUsuarioServlet extends HttpServlet {
@@ -29,10 +32,14 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         String rol = request.getParameter("rol");
         String clave = request.getParameter("clave");
 
+        // Autenticación básica
+        String encodedAuth = Base64.getEncoder().encodeToString("admin:admin".getBytes());
+
         // Verificar si ya existe el usuario por documento
         URL url = new URL(API_URL + "/document/" + documento);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
+        connection.setRequestProperty("Authorization", "Basic " + encodedAuth);
 
         int statusCode = connection.getResponseCode();
 
@@ -61,17 +68,18 @@ public class RegistrarUsuarioServlet extends HttpServlet {
             default -> 0L;
         };
 
-        // Crear el DTO
+
         UserRequestDTO nuevoUsuario = new UserRequestDTO(
                 firstName,
                 lastName,
                 correo,
                 clave,
                 true,
-                roleId
+                roleId,
+                documento
         );
 
-        // Serializar a JSON con Gson
+        // Serializar a JSON
         Gson gson = new Gson();
         String json = gson.toJson(nuevoUsuario);
 
@@ -80,6 +88,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         HttpURLConnection postConn = (HttpURLConnection) postUrl.openConnection();
         postConn.setRequestMethod("POST");
         postConn.setRequestProperty("Content-Type", "application/json");
+        postConn.setRequestProperty("Authorization", "Basic " + encodedAuth);
         postConn.setDoOutput(true);
 
         try (OutputStream os = postConn.getOutputStream()) {
@@ -92,7 +101,15 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         if (postStatus == 201 || postStatus == 200) {
             response.sendRedirect("jsp/user-management.jsp?registroExitoso=true");
         } else {
-            request.setAttribute("errorRegistro", "Ocurrió un error al registrar el usuario.");
+            // Leer mensaje de error del backend si lo hay
+            BufferedReader br = new BufferedReader(new InputStreamReader(postConn.getErrorStream(), "utf-8"));
+            StringBuilder errorResponse = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                errorResponse.append(line.trim());
+            }
+
+            request.setAttribute("errorRegistro", "Ocurrió un error al registrar el usuario. Detalle: " + errorResponse.toString());
             request.getRequestDispatcher("jsp/user-management.jsp").forward(request, response);
         }
     }

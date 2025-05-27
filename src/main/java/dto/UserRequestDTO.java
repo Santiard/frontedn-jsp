@@ -8,14 +8,16 @@ public class UserRequestDTO {
     private String password;
     private Boolean status;
     private Long roleId;
+    private String documentNumber;
 
-    public UserRequestDTO(String firstName, String lastName, String email, String password, Boolean status, Long roleId) {
+    public UserRequestDTO(String firstName, String lastName, String email, String password, Boolean status, Long roleId,String documentNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.status = status;
         this.roleId = roleId;
+        this.documentNumber = documentNumber;
     }
 
     public String getFirstName() { return firstName; }
@@ -35,4 +37,7 @@ public class UserRequestDTO {
 
     public Long getRoleId() { return roleId; }
     public void setRoleId(Long roleId) { this.roleId = roleId; }
+
+    public String getdocumentNumber() { return documentNumber; }
+    public void setdocumentNumber(String documentNumber) { this.documentNumber = documentNumber; }
 }

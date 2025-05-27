@@ -8,11 +8,16 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/HomeServlet")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/teachersManagmentServlet")
+public class TeacherManagementServlet extends HttpServlet{
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
+
+        request.getRequestDispatcher("jsp/teacher-management.jsp").forward(request, response);
     }
 }
+
+
+

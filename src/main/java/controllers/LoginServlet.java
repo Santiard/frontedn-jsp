@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
             String body = "email=" + URLEncoder.encode(email, "UTF-8") +
                     "&password=" + URLEncoder.encode(password, "UTF-8");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            // Enviar los parámetros al backend
+
             try (OutputStream os = connection.getOutputStream()) {
                 os.write(body.getBytes(StandardCharsets.UTF_8));
             }

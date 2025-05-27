@@ -13,23 +13,26 @@
     <div class="nav-options">
 
         <c:if test="${sessionScope.rol == 'ADMIN'}">
-            <a href="${pageContext.request.contextPath}/usuarios">Gestion Usuarios</a>
-            <a href="${pageContext.request.contextPath}/teacher-management.jsp">Gestion Docentes</a>
-            <a href="${pageContext.request.contextPath}/student-management.jsp">Gestion Estudiantes</a>
-            <a href="${pageContext.request.contextPath}/semester-management.jsp">Gestion Semestres</a>
-            <a href="${pageContext.request.contextPath}/subject-management.jsp">Gestion Materias</a>
-            <a href="${pageContext.request.contextPath}/place-management.jsp">Gestion Espacios</a>
-            <a href="${pageContext.request.contextPath}/loans-management.jsp">Gestion Prestamos</a>
-            <a href="${pageContext.request.contextPath}/registroCarreraEstudiante.jsp">Registro estudiante-carrera</a>
+            <a href="${pageContext.request.contextPath}/HomeServlet">Home</a>
+            <a href="${pageContext.request.contextPath}/UserManagementServlet">Gestion Usuarios</a>
+            <a href="${pageContext.request.contextPath}/teachersManagmentServlet">Gestion Docentes</a>
+            <a href="${pageContext.request.contextPath}/StudentManagementServlet">Gestion Estudiantes</a>
+            <a href="${pageContext.request.contextPath}/SemesterManagementServlet">Gestion Semestres</a>
+            <a href="${pageContext.request.contextPath}/SubjectManagementServlet">Gestion Materias</a>
+            <a href="${pageContext.request.contextPath}/PlaceManagementServlet">Gestion Espacios</a>
+            <a href="${pageContext.request.contextPath}/LoanManagementServlet">Gestion Prestamos</a>
+            <a href="${pageContext.request.contextPath}/registro-carrera-estudiante">Registro estudiante-carrera</a>
         </c:if>
 
         <c:if test="${sessionScope.rol == 'TEACHER'}">
+            <a href="${pageContext.request.contextPath}/HomeServlet">Home</a>
             <a href="#">Gestion Notas</a>
             <a href="#">Gestion Asistencias</a>
             <a href="#">Gestion Evaluaciones</a>
         </c:if>
 
         <c:if test="${sessionScope.rol == 'STUDENT'}">
+            <a href="${pageContext.request.contextPath}/HomeServlet">Home</a>
             <a href="#">Gestion Materias</a>
             <a href="#">Gestion Excusas</a>
             <a href="#">Record Academico</a>
