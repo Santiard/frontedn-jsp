@@ -88,7 +88,6 @@
 <body>
 <div class="page-wrapper">
 
-    <!-- Buscar docente -->
     <div class="full-width-container">
         <div class="form-container">
             <h2>Buscar Docente</h2>
@@ -97,28 +96,33 @@
                 <input type="text" id="buscarDocumento" name="documento" required>
                 <button type="submit">Buscar</button>
             </form>
+            <form action="BuscarDocentePorCodigoServlet" method="get">
+                <label for="buscarCodigo">Código Institucional:</label>
+                <input type="text" id="buscarCodigo" name="codigo" required>
+                <button type="submit">Buscar</button>
+            </form>
         </div>
     </div>
 
-    <!-- Registrar y Editar docente -->
+
     <div class="row-container">
         <div class="form-container equal-panel">
             <h2>Registrar Docente</h2>
             <form action="RegistrarDocenteServlet" method="post">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-
-                <label for="documento">Documento:</label>
+                <label for="documento">Documento del Usuario:</label>
                 <input type="text" id="documento" name="documento" required>
 
-                <label for="correo">Correo:</label>
-                <input type="email" id="correo" name="correo" required>
-
-                <label for="departamento">Departamento:</label>
+                <label for="departamento">Departamento / Especialización:</label>
                 <input type="text" id="departamento" name="departamento" required>
 
-                <label for="clave">Contraseña:</label>
-                <input type="password" id="clave" name="clave" required>
+                <label for="codigoInstitucional">Código Institucional:</label>
+                <input type="text" id="codigoInstitucional" name="codigoInstitucional" required>
+
+                <label for="statusContrato">¿Contrato activo?</label>
+                <select name="statusContrato" id="statusContrato" required>
+                    <option value="true">Sí</option>
+                    <option value="false">No</option>
+                </select>
 
                 <button type="submit">Registrar</button>
             </form>
@@ -128,20 +132,23 @@
             <h2>Editar Docente</h2>
             <form action="EditarDocenteServlet" method="post">
 
-                <label for="nombreEditar">Nombre:</label>
-                <input type="text" id="nombreEditar" name="nombre">
+                <input type="hidden" name="id" value="${teacher.id}" />
 
-                <label for="documentoEditar">Documento:</label>
-                <input type="text" id="documentoEditar" name="documento">
+                <input type="text" id="nombreEditar" name="nombre"
+                       value="${docenteBuscado.firstName} ${docenteBuscado.lastName}"
+                       <c:if test="${empty docenteBuscado}">readonly</c:if> />
 
-                <label for="correoEditar">Correo:</label>
-                <input type="email" id="correoEditar" name="correo">
+                <input type="text" id="documentoEditar" name="documento"
+                       value="${docenteBuscado.documentNumber}"
+                       <c:if test="${empty docenteBuscado}">readonly</c:if> />
 
-                <label for="departamentoEditar">Departamento:</label>
-                <input type="text" id="departamentoEditar" name="departamento">
+                <input type="text" id="codigoInstitucionalEditar" name="codigoInstitucional"
+                       value="${docenteBuscado.institutionalCode}"
+                       readonly />
 
-                <label for="claveEditar">Contraseña:</label>
-                <input type="password" id="claveEditar" name="clave">
+                <input type="text" id="departamentoEditar" name="departamento"
+                       value="${docenteBuscado.specialization}"
+                       <c:if test="${empty docenteBuscado}">readonly</c:if> />
 
                 <button type="submit">Actualizar</button>
             </form>
