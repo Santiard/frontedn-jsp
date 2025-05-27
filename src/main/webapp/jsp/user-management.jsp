@@ -9,7 +9,42 @@
 <head>
     <meta charset="UTF-8" />
     <title>Gestión de Usuarios - Apocalipsis</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styleUser-management.css" />
+    <style>
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px;
+            flex: 1;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .row-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .full-width-container {
+            margin: 20px;
+        }
+        form label {
+            font-weight: 600;
+        }
+        input, select, button {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+        }
+        button {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
 <body>

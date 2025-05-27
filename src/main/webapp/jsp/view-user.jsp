@@ -5,17 +5,12 @@
     <meta charset="UTF-8">
     <title>Usuarios - Apocalipsis</title>
     <style>
+
         body {
             font-family: 'Segoe UI', sans-serif;
             background-color: #f4f6f9;
             margin: 0;
             padding: 0;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
         }
 
         h2 {
@@ -24,6 +19,52 @@
             margin-bottom: 30px;
         }
 
+        /* Layout Containers */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+
+        .module img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        .module span {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Form Elements */
+        form label {
+            font-weight: 600;
+        }
+
+        input,
+        select,
+        button {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+        }
+
+        button {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Accordion Styles */
         .accordion {
             background-color: #ffffff;
             border-radius: 8px;
@@ -56,6 +97,28 @@
             padding: 0 20px 15px 20px;
             display: none;
             background-color: #ecf0f1;
+        }
+
+        /* User Cards and Details */
+        .user-card {
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+        }
+
+        .user-card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .user-card p {
+            margin: 8px 0;
+            font-size: 15px;
+            color: #34495e;
+        }
+
+        .user-card p strong {
+            width: 90px;
+            display: inline-block;
         }
 
         .user-detail {
@@ -100,6 +163,7 @@
             color: #2980b9;
         }
     </style>
+
 </head>
 <body>
 <%@ include file="header.jsp" %>
