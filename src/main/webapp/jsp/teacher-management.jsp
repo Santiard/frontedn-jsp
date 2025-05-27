@@ -6,78 +6,39 @@
     <meta charset="UTF-8" />
     <title>Gestión de Docentes | Apocalipsis</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
-
-        .page-wrapper {
-            padding: 30px;
-        }
-
-        .full-width-container {
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: center;
-        }
-
         .form-container {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 500px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px;
+            flex: 1;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        .form-container h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: #0056b3;
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
         .row-container {
             display: flex;
+            justify-content: space-around;
             flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
         }
-
-        .equal-panel {
-            flex: 1;
-            min-width: 300px;
-            max-width: 500px;
+        .full-width-container {
+            margin: 20px;
+        }
+        form label {
+            font-weight: 600;
+        }
+        input, select, button {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+        }
+        button {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -100,7 +61,6 @@
         </div>
     </div>
 
-    <!-- Registrar y Editar docente -->
     <div class="row-container">
         <div class="form-container equal-panel">
             <h2>Registrar Docente</h2>
@@ -114,8 +74,8 @@
                 <label for="correo">Correo:</label>
                 <input type="email" id="correo" name="correo" required>
 
-                <label for="departamento">Departamento:</label>
-                <input type="text" id="departamento" name="departamento" required>
+                <label for="specialization">Espacializacion:</label>
+                <input type="text" id="specialization" name="specialization" required>
 
                 <label for="clave">Contraseña:</label>
                 <input type="password" id="clave" name="clave" required>
@@ -137,8 +97,8 @@
                 <label for="correoEditar">Correo:</label>
                 <input type="email" id="correoEditar" name="correo">
 
-                <label for="departamentoEditar">Departamento:</label>
-                <input type="text" id="departamentoEditar" name="departamento">
+                <label for="specializationEditar">Especializacion:</label>
+                <input type="text" id="specializationEditar" name="specialization">
 
                 <label for="claveEditar">Contraseña:</label>
                 <input type="password" id="claveEditar" name="clave">

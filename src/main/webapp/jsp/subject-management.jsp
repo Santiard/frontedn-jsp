@@ -61,14 +61,30 @@
     <div class="form-container">
       <h2>Registrar Materia</h2>
       <form action="RegistrarMateriaServlet" method="post">
+        <label for="codigoMateria">Código de la materia:</label>
+        <input type="text" id="codigoMateria" name="codigo" required>
+
         <label for="nombreMateria">Nombre de la materia:</label>
         <input type="text" id="nombreMateria" name="nombre" required>
 
         <label for="creditos">Créditos:</label>
         <input type="number" id="creditos" name="creditos" min="1" max="10" required>
 
+        <label for="competencias">Competencias:</label>
+        <input type="text" id="competencias" name="competencias" required>
+
+        <label for="contenido">Contenido:</label>
+        <input type="text" id="contenido" name="contenido" required>
+
+        <label for="objetivos">Objetivos:</label>
+        <input type="text" id="objetivos" name="objetivos" required>
+
+        <label for="prerrequisito">ID de Prerrequisito:</label>
+        <input type="number" id="prerrequisito" name="prerrequisito" min="1" max="100">
+
         <button type="submit">Registrar</button>
       </form>
+
     </div>
 
     <div class="form-container">
@@ -83,8 +99,21 @@
         <label for="creditosEditar">Créditos:</label>
         <input type="number" id="creditosEditar" name="creditos" min="1" max="10">
 
+        <label for="competenciasEditar">Competencias:</label>
+        <input type="text" id="competenciasEditar" name="competencias">
+
+        <label for="contenidoEditar">Contenido:</label>
+        <input type="text" id="contenidoEditar" name="contenido">
+
+        <label for="objetivosEditar">Objetivos:</label>
+        <input type="text" id="objetivosEditar" name="objetivos">
+
+        <label for="prerrequisitoEditar">ID de Prerrequisito:</label>
+        <input type="number" id="prerrequisitoEditar" name="prerrequisito" min="1" max="100">
+
         <button type="submit">Actualizar</button>
       </form>
+
     </div>
   </div>
 </div>

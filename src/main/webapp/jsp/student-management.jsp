@@ -6,78 +6,39 @@
     <meta charset="UTF-8" />
     <title>Gestión de Estudiantes | Apocalipsis</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
-
-        .page-wrapper {
-            padding: 30px;
-        }
-
-        .full-width-container {
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: center;
-        }
-
         .form-container {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 500px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px;
+            flex: 1;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        .form-container h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: #0056b3;
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
         .row-container {
             display: flex;
+            justify-content: space-around;
             flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
         }
-
-        .equal-panel {
-            flex: 1;
-            min-width: 300px;
-            max-width: 500px;
+        .full-width-container {
+            margin: 20px;
+        }
+        form label {
+            font-weight: 600;
+        }
+        input, select, button {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+        }
+        button {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -108,6 +69,9 @@
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>
 
+                <label for="codigo">Código de Estudiante:</label>
+                <input type="text" id="codigo" name="codigo" required>
+
                 <label for="documento">Documento:</label>
                 <input type="text" id="documento" name="documento" required>
 
@@ -116,6 +80,22 @@
 
                 <label for="programa">Programa Académico:</label>
                 <input type="text" id="programa" name="programa" required>
+
+                <label for="estado">Estado del Estudiante:</label>
+                <select id="estado" name="estado" required>
+                    <option value="">-- Selecciona un estado --</option>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select>
+
+                <label for="telefono">Número de Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}" placeholder="Ej: 3001234567">
+
+                <label for="fechaRegistro">Fecha de Registro:</label>
+                <input type="date" id="fechaRegistro" name="fechaRegistro" required>
+
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
 
                 <label for="clave">Contraseña:</label>
                 <input type="password" id="clave" name="clave" required>
@@ -126,25 +106,46 @@
 
         <div class="form-container equal-panel">
             <h2>Editar Estudiante</h2>
+
             <form action="EditarEstudianteServlet" method="post">
 
-                <label for="nombreEditar">Nombre:</label>
-                <input type="text" id="nombreEditar" name="nombre">
+            <label for="nombreEditar">Nombre:</label>
+            <input type="text" id="nombreEditar" name="nombre">
 
-                <label for="documentoEditar">Documento:</label>
-                <input type="text" id="documentoEditar" name="documento">
+                <label for="codigoEditar">Código de Estudiante:</label>
+                <input type="text" id="codigoEditar" name="codigo">
 
-                <label for="correoEditar">Correo:</label>
-                <input type="email" id="correoEditar" name="correo">
+            <label for="documentoEditar">Documento:</label>
+            <input type="text" id="documentoEditar" name="documento">
 
-                <label for="programaEditar">Programa Académico:</label>
-                <input type="text" id="programaEditar" name="programa">
+            <label for="correoEditar">Correo:</label>
+            <input type="email" id="correoEditar" name="correo">
 
-                <label for="claveEditar">Contraseña:</label>
-                <input type="password" id="claveEditar" name="clave">
+            <label for="programaEditar">Programa Académico:</label>
+            <input type="text" id="programaEditar" name="programa">
 
-                <button type="submit">Actualizar</button>
-            </form>
+            <label for="estadoEditar">Estado del Estudiante:</label>
+            <select id="estadoEditar" name="estado" required>
+                <option value="">-- Selecciona un estado --</option>
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+            </select>
+
+            <label for="telefonoEditar">Número de Teléfono:</label>
+            <input type="tel" id="telefonoEditar" name="telefono" pattern="[0-9]{10}" placeholder="Ej: 3001234567">
+
+            <label for="fechaRegistroEditar">Fecha de Registro:</label>
+            <input type="date" id="fechaRegistroEditar" name="fechaRegistro">
+
+            <label for="direccionEditar">Dirección:</label>
+            <input type="text" id="direccionEditar" name="direccion">
+
+            <label for="claveEditar">Contraseña:</label>
+            <input type="password" id="claveEditar" name="clave">
+
+            <button type="submit">Actualizar</button>
+        </form>
+
         </div>
     </div>
 </div>

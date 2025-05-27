@@ -61,16 +61,14 @@
     <div class="form-container">
       <h2>Registrar Semestre</h2>
       <form action="RegistrarSemestreServlet" method="post">
-        <label for="nombre">Nombre del semestre:</label>
-        <input type="text" id="nombre" name="nombre" required>
 
         <label for="anio">Año:</label>
         <input type="number" id="anio" name="anio" required>
 
         <label for="periodo">Periodo:</label>
         <select id="periodo" name="periodo">
-          <option value="1">Primer semestre</option>
-          <option value="2">Segundo semestre</option>
+          <option value="1">A</option>
+          <option value="2">B</option>
         </select>
 
         <button type="submit">Registrar</button>
@@ -80,19 +78,14 @@
     <div class="form-container">
       <h2>Editar Semestre</h2>
       <form action="EditarSemestreServlet" method="post">
-        <label for="codigoEditar">Código del semestre:</label>
-        <input type="text" id="codigoEditar" name="codigo" required>
-
-        <label for="nombreEditar">Nombre:</label>
-        <input type="text" id="nombreEditar" name="nombre">
 
         <label for="anioEditar">Año:</label>
         <input type="number" id="anioEditar" name="anio">
 
         <label for="periodoEditar">Periodo:</label>
         <select id="periodoEditar" name="periodo">
-          <option value="1">Primer semestre</option>
-          <option value="2">Segundo semestre</option>
+          <option value="1">A</option>
+          <option value="2">B</option>
         </select>
 
         <button type="submit">Actualizar</button>

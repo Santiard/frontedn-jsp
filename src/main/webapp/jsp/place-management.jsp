@@ -61,11 +61,31 @@
     <div class="form-container">
       <h2>Registrar Espacio</h2>
       <form action="RegistrarEspacioServlet" method="post">
-        <label for="nombreEspacio">Nombre del espacio:</label>
-        <input type="text" id="nombreEspacio" name="nombre" required>
+        <label for="codigoReserva">Código del espacio:</label>
+        <input type="text" id="codigoReserva" name="codigo" required>
 
         <label for="capacidad">Capacidad:</label>
         <input type="number" id="capacidad" name="capacidad" min="1" required>
+
+        <label for="tipoEspacio">Tipo de espacio:</label>
+        <select id="tipoEspacio" name="tipo" required>
+          <option value="Estudio">Estudio</option>
+          <option value="Laboratorio">Laboratorio</option>
+          <option value="Evento">Evento</option>
+          <option value="Reunión">Reunión</option>
+          <option value="Comedor">Comedor</option>
+          <option value="Deporte">Deporte</option>
+          <option value="Práctica">Práctica</option>
+          <option value="Multimedia">Multimedia</option>
+          <option value="Computación">Computación</option>
+          <option value="Sala gamer">Sala gamer</option>
+        </select>
+
+        <label for="disponibilidad">Disponibilidad:</label>
+        <select id="disponibilidad" name="available" required>
+          <option value="1">Disponible</option>
+          <option value="0">En Obras</option>
+        </select>
 
         <button type="submit">Registrar</button>
       </form>
@@ -74,17 +94,35 @@
     <div class="form-container">
       <h2>Editar Espacio</h2>
       <form action="EditarEspacioServlet" method="post">
-        <label for="codigoEspacioEditar">Código del espacio:</label>
-        <input type="text" id="codigoEspacioEditar" name="codigo" required>
-
-        <label for="nombreEspacioEditar">Nombre:</label>
-        <input type="text" id="nombreEspacioEditar" name="nombre">
+        <label for="codigoReservaEditar">Código del espacio:</label>
+        <input type="text" id="codigoReservaEditar" name="codigo" required>
 
         <label for="capacidadEditar">Capacidad:</label>
         <input type="number" id="capacidadEditar" name="capacidad" min="1">
 
+        <label for="tipoEspacioEditar">Tipo de espacio:</label>
+        <select id="tipoEspacioEditar" name="tipo">
+          <option value="Estudio">Estudio</option>
+          <option value="Laboratorio">Laboratorio</option>
+          <option value="Evento">Evento</option>
+          <option value="Reunión">Reunión</option>
+          <option value="Comedor">Comedor</option>
+          <option value="Deporte">Deporte</option>
+          <option value="Práctica">Práctica</option>
+          <option value="Multimedia">Multimedia</option>
+          <option value="Computación">Computación</option>
+          <option value="Sala gamer">Sala gamer</option>
+        </select>
+
+        <label for="disponibilidadEditar">Disponibilidad:</label>
+        <select id="disponibilidadEditar" name="available">
+          <option value="1">Disponible</option>
+          <option value="0">En Obras</option>
+        </select>
+
         <button type="submit">Actualizar</button>
       </form>
+
     </div>
   </div>
 </div>
