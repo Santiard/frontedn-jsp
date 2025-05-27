@@ -13,7 +13,7 @@
     <div class="nav-options">
 
         <c:if test="${sessionScope.rol == 'ADMIN'}">
-            <a href="${pageContext.request.contextPath}/user-management.jsp">Gestion Usuarios</a>
+            <a href="${pageContext.request.contextPath}/usuarios">Gestion Usuarios</a>
             <a href="${pageContext.request.contextPath}/teacher-management.jsp">Gestion Docentes</a>
             <a href="${pageContext.request.contextPath}/student-management.jsp">Gestion Estudiantes</a>
             <a href="${pageContext.request.contextPath}/semester-management.jsp">Gestion Semestres</a>
