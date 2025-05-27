@@ -47,4 +47,15 @@
         <url-pattern>/registroCarreraEstudiante</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ViewUsuariosServlet</servlet-name>
+        <servlet-class>controllers.ViewUsuariosServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ViewUsuariosServlet</servlet-name>
+        <url-pattern>/verUsuarios</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
