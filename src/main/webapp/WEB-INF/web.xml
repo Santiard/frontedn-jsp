@@ -49,7 +49,7 @@
 
     <servlet>
         <servlet-name>ViewUsuariosServlet</servlet-name>
-        <servlet-class>controllers.ViewUsuariosServlet</servlet-class>
+        <servlet-class>controllers.ViewUserServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
